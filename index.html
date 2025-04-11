@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>滑入滑出選單</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* 選單樣式 */
+      .menu {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background-color: #fdf0d5;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .menu li {
+        margin: 0;
+        padding: 10px 15px;
+      }
+
+      .menu li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+      }
+
+      .menu li a:hover {
+        color: #007bff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 選單 -->
+    <ul class="menu">
+      <li><a href="#" onclick="hideIframe()">首頁</a></li>
+      <li><a href="#about">自我介紹</a></li>
+      <li class="dropdown">
+        <a href="#portfolio">作品集</a>
+        <ul class="submenu">
+          <li><a href="#" onclick="loadIframe('https://413730259yu.github.io/20250328/')">第一周</a></li>
+          <li><a href="#" onclick="loadIframe('https://www.et.tku.edu.tw/')">第二周</a></li>
+          <li><a href="#" onclick="loadIframe('https://hackmd.io/@Taitingyu/HJDj25Qa1l')">第三周</a></li>
+          <li><a href="#" onclick="loadIframe('https://www.tku.edu.tw/')">第四周</a></li>
+        </ul>
+      </li>
+      <li><a href="#quiz">測驗卷</a></li>
+      <li><a href="#videos">教學影片</a></li>
+    </ul>
+
+    <!-- iframe -->
+    <iframe id="content-frame" src="" frameborder="0" style="display: none;"></iframe>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script src="sketch.js"></script>
+    <script>
+      // 動態載入 iframe 網頁
+      function loadIframe(url) {
+        const iframe = document.getElementById('content-frame');
+        iframe.src = url;
+        iframe.style.display = 'block';
+      }
+
+      // 隱藏 iframe
+      function hideIframe() {
+        const iframe = document.getElementById('content-frame');
+        iframe.style.display = 'none';
+        iframe.src = '';
+      }
+
+      // 控制選單滑入滑出
+      document.addEventListener('mousemove', (event) => {
+        const menu = document.querySelector('.menu');
+        if (event.clientY < 250) {
+          menu.style.transition = 'top 0.5s ease';
+          menu.style.top = '10px';
+        } else {
+          menu.style.transition = 'top 0.5s ease';
+          menu.style.top = '-100px';
+        }
+      });
+    </script>
+  </body>
+</html>
